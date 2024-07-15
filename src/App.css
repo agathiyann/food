@@ -1,0 +1,58 @@
+.App {
+  text-align: center;
+  padding-top: 1px;
+  background-color: black;
+  color: #ffffff;
+}
+
+.food-icon {
+  width: 20px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+  margin-right: 8px;
+}
+
+.dish-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #ff5b26;
+}
+
+.dish-item {
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  align-items: center;
+}
+
+.dish-item img {
+  width: 100%;
+  height: auto;
+}
+
+.published,
+.unpublished {
+    width: 100px; 
+    height: 40px; 
+    font-size: 16px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.published {
+    background-color: green;
+    color: white;
+}
+
+.unpublished {
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+}
