@@ -10,7 +10,7 @@ function App() {
     useEffect(() => {
         const fetchDishes = async () => {
             try {
-                const response = await axios.get('https://foodbackend-461j.onrender.com/dishes');
+                const response = await axios.get('https://foodbackend-461j.onrender.com/api/dishes');
                 setDishes(response.data);
             } catch (error) {
                 console.error('Error fetching dishes:', error);
@@ -25,7 +25,7 @@ function App() {
         const updatedDish = { ...dish, isPublished: !dish.isPublished };
 
         try {
-            const response = await axios.put(`https://foodbackend-461j.onrender.com/dishes/${id}`, { isPublished: updatedDish.isPublished });
+            const response = await axios.put(`https://foodbackend-461j.onrender.com/api/dishes/${id}`, { isPublished: updatedDish.isPublished });
             setDishes(dishes.map(d => d._id === id ? response.data : d));
         } catch (error) {
             console.error('Error updating dish:', error);
