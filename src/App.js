@@ -1,34 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DishList from './components/DishList';
-import foodIcon from './components/nosh.png'; // Import your icon
+import DishItem from './DishItem';
 import './App.css';
+import noshImage from './assets/nosh.png';
 
-const App = () => {
+function App() {
     const [dishes, setDishes] = useState([]);
 
     useEffect(() => {
         const fetchDishes = async () => {
-            const { data } = await axios.get('http://localhost:5000/api/dishes');
-            setDishes(data);
+            try {
+                const response = await axios.get('https://foodbackend-461j.onrender.com/dishes');
+                setDishes(response.data);
+            } catch (error) {
+                console.error('Error fetching dishes:', error);
+            }
         };
 
         fetchDishes();
     }, []);
 
     const togglePublished = async (id) => {
-        const { data } = await axios.put(`http://localhost:5000/api/dishes/${id}/toggle`);
-        setDishes(dishes.map(dish => dish._id === data._id ? data : dish));
+        const dish = dishes.find(d => d._id === id);
+        const updatedDish = { ...dish, isPublished: !dish.isPublished };
+
+        try {
+            const response = await axios.put(`https://foodbackend-461j.onrender.com/dishes/${id}`, { isPublished: updatedDish.isPublished });
+            setDishes(dishes.map(d => d._id === id ? response.data : d));
+        } catch (error) {
+            console.error('Error updating dish:', error);
+        }
     };
 
     return (
         <div className="App">
-            <div className="header"> 
-                <h1>Food Menu<img src={foodIcon} alt="Food Icon" className="food-icon"  /></h1>
+            <header className="App-header">
+                <img src={noshImage} alt="Nosh Logo" className="nosh-logo" />
+                <h1>Food Menu</h1>
+            </header>
+            <div className="dish-list">
+                {dishes.map(dish => (
+                    <DishItem key={dish._id} dish={dish} togglePublished={togglePublished} />
+                ))}
             </div>
-            <DishList dishes={dishes} togglePublished={togglePublished} />
         </div>
     );
-};
+}
 
 export default App;
