@@ -1,50 +1,35 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DishItem from './components/DishItem';
+import DishList from './components/DishList';
+import foodIcon from './components/nosh.png';
 import './App.css';
-import noshImage from '../src/components/nosh.png';
 
-function App() {
+const App = () => {
     const [dishes, setDishes] = useState([]);
 
     useEffect(() => {
         const fetchDishes = async () => {
-            try {
-                const response = await axios.get('https://foodbackend-461j.onrender.com/api/dishes');
-                setDishes(response.data);
-            } catch (error) {
-                console.error('Error fetching dishes:', error);
-            }
+            const { data } = await axios.get('https://foodbackend-461j.onrender.com/api/dishes');
+            setDishes(data);
         };
 
         fetchDishes();
     }, []);
 
     const togglePublished = async (id) => {
-        const dish = dishes.find(d => d._id === id);
-        const updatedDish = { ...dish, isPublished: !dish.isPublished };
-
-        try {
-            const response = await axios.put(`https://foodbackend-461j.onrender.com/api/dishes/${id}`, { isPublished: updatedDish.isPublished });
-            setDishes(dishes.map(d => d._id === id ? response.data : d));
-        } catch (error) {
-            console.error('Error updating dish:', error);
-        }
+        const { data } = await axios.put(`https://foodbackend-461j.onrender.com/api/dishes${id}/toggle`);
+        setDishes(dishes.map(dish => dish._id === data._id ? data : dish));
     };
 
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={noshImage} alt="Nosh Logo" className="nosh-logo" />
-                <h1>Food Menu</h1>
-            </header>
-            <div className="dish-list">
-                {dishes.map(dish => (
-                    <DishItem key={dish._id} dish={dish} togglePublished={togglePublished} />
-                ))}
+            <div className="header"> 
+                <h1>Food Menu<img src={foodIcon} alt="Food Icon" className="food-icon"  /></h1>
             </div>
+            <DishList dishes={dishes} togglePublished={togglePublished} />
         </div>
     );
-}
+};
 
 export default App;
