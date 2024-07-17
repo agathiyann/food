@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DishList from './components/DishList';
-import foodIcon from './components/nosh.png'; // Import your icon
+import foodIcon from './components/nosh.png';
 import './App.css';
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
     }, []);
 
     const togglePublished = async (id) => {
-        const { data } = await axios.put(`https://foodbackend-461j.onrender.com/api/dishes/${id}/toggle`);
+        const { data } = await axios.put(`https://foodbackend-461j.onrender.com/api/dishes${id}/toggle`);
         setDishes(dishes.map(dish => dish._id === data._id ? data : dish));
     };
 
