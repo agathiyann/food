@@ -2,7 +2,7 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 100px; /* Adjusted width to accommodate labels */
+    width: 100px; 
     height: 34px;
     margin: 10px 0;
 }
@@ -27,7 +27,7 @@
     border-radius: 34px;
 }
 
-/* The slider before */
+
 .slider:before {
     position: absolute;
     content: "";
