@@ -9,7 +9,7 @@ const App = () => {
 
     useEffect(() => {
         const fetchDishes = async () => {
-            const { data } = await axios.get('http://localhost:10000/api/dishes');
+            const { data } = await axios.get('https://foodbackend-461j.onrender.com/api/dishes');
             setDishes(data);
         };
 
@@ -17,7 +17,7 @@ const App = () => {
     }, []);
 
     const togglePublished = async (id) => {
-        const { data } = await axios.put(`http://localhost:10000/api/dishes${id}/toggle`);
+        const { data } = await axios.put(`'https://foodbackend-461j.onrender.com/api/dishes'${id}/toggle`);
         setDishes(dishes.map(dish => dish._id === data._id ? data : dish));
     };
 
